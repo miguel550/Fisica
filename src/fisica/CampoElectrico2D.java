@@ -92,6 +92,15 @@ public class CampoElectrico2D {
     }
     @Override
     public String toString(){
-        return "HOLI";
+        String endl = "\n";
+        String s = "Cargas" + endl;
+        s = l.stream().map((c) -> c.toString() + endl).reduce(s, String::concat);
+        s += endl;
+        s += "Punto de carga: " + this.p.toString() +"m"+ endl;
+        s += "El angulo del campo es " + this.getAngleE() +" grados"+ endl;
+        s += "El campo electrico en x es " + this.getEx() +" n/c"+ endl;
+        s += "El campo electrico en y es " + this.getEy() +" n/c"+ endl;
+        s += "El campo electrico neto es " + this.getE() +" n/c" +endl;
+        return s;
     }
 }

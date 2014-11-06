@@ -41,6 +41,6 @@ public class Carga<T extends Point> {
     }
     @Override
     public String toString(){
-        return this.og+"x10^-6, "+this.point.toString();
+        return this.og+"x10^-6 c, "+this.point.toString()+"m";
     }
 }

@@ -94,6 +94,15 @@ public class CampoElectrico3D {
     }
     @Override
     public String toString(){
-        return null;
+        String endl = "\n";
+        String s = "Cargas" + endl;
+        s = l.stream().map((c) -> c.toString() + endl).reduce(s, String::concat);
+        s += endl;
+        s += "Punto de carga: " + this.p.toString() +"m"+ endl;
+        s += "El campo electrico en x es " +this.getEx() + " n/c"+endl;
+        s +="El campo electrico en y es "+ this.getEy() + " n/c"+endl;
+        s += "El campo electrico en z es "+ this.getEz() + " n/c"+endl;
+        s += "El campo electrico neto es "+ this.getE() + " n/c"+endl;
+        return s;
     }
 }
