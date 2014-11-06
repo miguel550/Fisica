@@ -25,8 +25,6 @@ public class MainWindow extends javax.swing.JFrame {
         cargas3d = new ArrayList();
         cmbCargas3D.removeAllItems();
         cmbCargas2D.removeAllItems();
-        ce2d = null;
-        ce3d = null;
     }
     /**
      * This method is called from within the constructor to initialize the form.

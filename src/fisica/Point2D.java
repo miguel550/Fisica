@@ -30,4 +30,8 @@ public class Point2D extends Point{
         Point2D np = (Point2D) p, res = new Point2D(this.x - np.getX(), this.y - np.getY());
         return res;
     }
+    @Override
+    public String toString(){
+        return "("+this.x+", "+this.y+")";
+    }
 }

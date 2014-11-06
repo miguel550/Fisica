@@ -45,4 +45,8 @@ public class Point3D extends Point{
     public Point3D multEscalar(double escalar) {
         return new Point3D (this.x*escalar, this.y*escalar, this.z*escalar);
     }
+    @Override
+    public String toString(){
+        return "("+this.x+", "+this.y+", "+this.z+")";
+    }
 }

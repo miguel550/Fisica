@@ -92,6 +92,6 @@ public class CampoElectrico2D {
     }
     @Override
     public String toString(){
-        return null;
+        return "HOLI";
     }
 }

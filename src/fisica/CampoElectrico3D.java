@@ -70,6 +70,15 @@ public class CampoElectrico3D {
         this.p = p;
         reCalculate();
     }
+
+    public ArrayList<Carga> getList() {
+        return l;
+    }
+
+    public void setList(ArrayList<Carga> l) {
+        this.l = l;
+    }
+    
     public double getE(){
         double x = getEx(), y = getEy(), z = getEz();
         return sqrt(x*x + y*y + z*z);
