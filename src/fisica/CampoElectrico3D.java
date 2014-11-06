@@ -15,12 +15,20 @@ import java.util.ArrayList;
  * @author Miguel
  */
 public class CampoElectrico3D {
-    Point3D p;
+    private Point3D p;
+    private ArrayList<Carga> l;
     private final double K = 8.9876*pow(10,9);
     private double ex, ey, ez;
     public CampoElectrico3D(Point3D point){
         this.p = point;
         ex = ey = ez = 0;
+        l = new ArrayList();
+    }
+        
+    public CampoElectrico3D(ArrayList<Carga> cargas){
+        this.l = cargas;
+        ex = ey = ez = 0;
+        //reCalculate();
     }
     public void addCarga(Carga c){
         Point3D g = (Point3D) c.getPoint();
@@ -40,6 +48,28 @@ public class CampoElectrico3D {
         ey -= abs(escalar * g.getY());
         ez -= abs(escalar * g.getZ());
     }
+    private void reCalculate(){
+        Point3D g, pp;
+        double escalar;
+        ex = ey = ez = 0.0;
+        for(Carga c: l){
+            g = (Point3D) c.getPoint();
+            g = (Point3D) g.diference(p);
+            pp = (Point3D) this.p.diference((Point3D) c.getPoint());
+            escalar = abs(c.getCarga()) / pow(g.abs(), 3);
+            ex += abs(escalar * g.getX());
+            ey += abs(escalar * g.getY());
+            ez += abs(escalar * g.getZ());
+        }
+    }
+    public Point3D getPuntoDeCarga() {
+        return p;
+    }
+
+    public void setPuntoDeCarga(Point3D p) {
+        this.p = p;
+        reCalculate();
+    }
     public double getE(){
         double x = getEx(), y = getEy(), z = getEz();
         return sqrt(x*x + y*y + z*z);
@@ -52,5 +82,9 @@ public class CampoElectrico3D {
     }
     public double getEz(){
         return K*ez;
+    }
+    @Override
+    public String toString(){
+        return null;
     }
 }
