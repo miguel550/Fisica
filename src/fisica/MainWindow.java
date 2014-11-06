@@ -5,6 +5,8 @@
  */
 package fisica;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Miguel
@@ -14,11 +16,18 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
-    
+    private CampoElectrico2D ce2d;
+    private CampoElectrico3D ce3d;
+    private final ArrayList<Carga> cargas2d, cargas3d;
     public MainWindow() {
         initComponents();
+        cargas2d = new ArrayList();
+        cargas3d = new ArrayList();
+        cmbCargas3D.removeAllItems();
+        cmbCargas2D.removeAllItems();
+        ce2d = null;
+        ce3d = null;
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,7 +187,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDeleteSelected2D)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCalculate2D, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnCalculate2D, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(30, 30, 30))
@@ -325,14 +334,13 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addComponent(btnDeleteSelected3D)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCalculate3D, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt3DXPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txt3DXPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txt3DYPunto)
@@ -345,7 +353,10 @@ public class MainWindow extends javax.swing.JFrame {
                                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt3DZPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(txt3DZPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(btnCalculate3D, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(30, 30, 30))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
@@ -422,42 +433,77 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnAgregar3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar3DActionPerformed
         // TODO add your handling code here:
-        //Se agrega una nueva carga
+        // Se agrega una nueva carga
+        Carga c;
+        cargas3d.add(( c = new Carga(Double.valueOf( txtCarga3D.getText()) , 
+                new Point3D(Double.valueOf( txt3DX.getText()), Double.valueOf( txt3DY.getText()), Double.valueOf( txt3DZ.getText())))));
+        cmbCargas3D.addItem(c);
     }//GEN-LAST:event_btnAgregar3DActionPerformed
 
     private void btnEditSelected3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSelected3DActionPerformed
         // TODO add your handling code here:
-        // Se edita el valor seleccionado en el combo box (Se debe abrir una ventanita de edicion)
+        // Se edita el valor seleccionado en el combo box
+        Carga c;
+        cargas3d.remove(c = (Carga) cmbCargas3D.getSelectedItem());
+        cmbCargas3D.removeItem(c);
+        txtCarga3D.setText("" + c.getCargaOG());
+        txt3DX.setText("" + ((Point3D) c.getPoint()).getX());
+        txt3DY.setText("" + ((Point3D) c.getPoint()).getY());
+        txt3DZ.setText("" + ((Point3D) c.getPoint()).getZ());
     }//GEN-LAST:event_btnEditSelected3DActionPerformed
 
     private void btnDeleteSelected3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSelected3DActionPerformed
         // TODO add your handling code here:
         // Se elimina el valor seleccionado en el combo box
+        Carga c;
+        cargas3d.remove(c = (Carga) cmbCargas3D.getSelectedItem());
+        cmbCargas3D.removeItem(c);
     }//GEN-LAST:event_btnDeleteSelected3DActionPerformed
 
     private void btnCalculate3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculate3DActionPerformed
         // TODO add your handling code here:
         // Imprime el calculo en el textarea
+        if(ce3d == null) ce3d = new CampoElectrico3D(cargas3d);
+        ce3d.setPuntoDeCarga(new Point3D(Double.valueOf( txt3DXPunto.getText()), Double.valueOf( txt3DYPunto.getText()), Double.valueOf( txt3DZPunto.getText())));
+        txtArea3D.append(ce3d.toString());
+        txtArea3D.append("---------------------------------------------------\n");
     }//GEN-LAST:event_btnCalculate3DActionPerformed
 
     private void btnAgregar2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar2DActionPerformed
         // TODO add your handling code here:
-        //Se agrega una nueva carga
+        // Se agrega una nueva carga
+        Carga c;
+        cargas2d.add(( c = new Carga(Double.valueOf( txtCarga2D.getText()) , 
+                new Point2D(Double.valueOf( txt2DX.getText()), Double.valueOf( txt2DY.getText())))));
+        cmbCargas2D.addItem(c);
     }//GEN-LAST:event_btnAgregar2DActionPerformed
 
     private void btnEditSelected2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSelected2DActionPerformed
         // TODO add your handling code here:
-        // Se edita el valor seleccionado en el combo box (Se debe abrir una ventanita de edicion)
+        // Se edita el valor seleccionado en el combo box
+        Carga c;
+        cargas2d.remove(c = (Carga) cmbCargas2D.getSelectedItem());
+        cmbCargas2D.removeItem(c);
+        txtCarga2D.setText("" + c.getCargaOG());
+        txt2DX.setText("" + ((Point2D) c.getPoint()).getX());
+        txt2DY.setText("" + ((Point2D) c.getPoint()).getY());
     }//GEN-LAST:event_btnEditSelected2DActionPerformed
 
     private void btnDeleteSelected2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSelected2DActionPerformed
         // TODO add your handling code here:
         // Se elimina el valor seleccionado en el combo box
+        Carga c;
+        cargas2d.remove(c = (Carga) cmbCargas2D.getSelectedItem());
+        cmbCargas2D.removeItem(c);
     }//GEN-LAST:event_btnDeleteSelected2DActionPerformed
 
     private void btnCalculate2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculate2DActionPerformed
         // TODO add your handling code here:
         // Imprime el calculo en el textarea
+        if(ce2d == null) ce2d = new CampoElectrico2D(cargas2d);
+        ce2d.setPuntoDeCarga(new Point2D(Double.valueOf( txt2DXPunto.getText()), Double.valueOf( txt2DYPunto.getText())));
+        txtArea2D.append(ce2d.toString());
+        txtArea2D.append("---------------------------------------------------\n");
     }//GEN-LAST:event_btnCalculate2DActionPerformed
 
     /**
@@ -476,23 +522,15 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        /* Create and display the form */
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainWindow().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
