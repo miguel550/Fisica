@@ -57,9 +57,9 @@ public class CampoElectrico3D {
             g = (Point3D) g.diference(p);
             pp = (Point3D) this.p.diference((Point3D) c.getPoint());
             escalar = abs(c.getCarga()) / pow(g.abs(), 3);
-            ex += abs(escalar * g.getX());
-            ey += abs(escalar * g.getY());
-            ez += abs(escalar * g.getZ());
+            ex += escalar * pp.getX();
+            ey += escalar * pp.getY();
+            ez += escalar * pp.getZ();
         }
     }
     public Point3D getPuntoDeCarga() {
@@ -96,13 +96,13 @@ public class CampoElectrico3D {
     public String toString(){
         String endl = "\n";
         String s = "Cargas" + endl;
-        s = l.stream().map((c) -> c.toString() + endl).reduce(s, String::concat);
+        for(Carga c: l) s += c.toString() + endl;
         s += endl;
         s += "Punto de carga: " + this.p.toString() +"m"+ endl;
-        s += "El campo electrico en x es " +this.getEx() + " n/c"+endl;
-        s +="El campo electrico en y es "+ this.getEy() + " n/c"+endl;
-        s += "El campo electrico en z es "+ this.getEz() + " n/c"+endl;
-        s += "El campo electrico neto es "+ this.getE() + " n/c"+endl;
+        s += "El campo electrico en x es " +String.format("%.02E",this.getEx()) + " n/c"+endl;
+        s +="El campo electrico en y es "+ String.format("%.02E",this.getEy()) + " n/c"+endl;
+        s += "El campo electrico en z es "+ String.format("%.02E",this.getEz()) + " n/c"+endl;
+        s += "El campo electrico neto es "+ String.format("%.02E",this.getE()) + " n/c"+endl;
         return s;
     }
 }

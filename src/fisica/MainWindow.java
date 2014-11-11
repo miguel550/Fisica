@@ -6,6 +6,7 @@
 package fisica;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +27,9 @@ public class MainWindow extends javax.swing.JFrame {
         cargas3d = new ArrayList();
         cmbCargas3D.removeAllItems();
         cmbCargas2D.removeAllItems();
+    }
+    private void alert(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -476,12 +480,16 @@ public class MainWindow extends javax.swing.JFrame {
     private void btnAgregar3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar3DActionPerformed
         // TODO add your handling code here:
         // Se agrega una nueva carga
-        Carga c;
-        cargas3d.add(( c = new Carga(Double.valueOf( txtCarga3D.getText()) , 
-                new Point3D(Double.valueOf( txt3DX.getText()), 
-                        Double.valueOf( txt3DY.getText()), 
-                        Double.valueOf( txt3DZ.getText())))));
-        cmbCargas3D.addItem(c);
+        if(!txtCarga3D.getText().isEmpty() && !txt3DX.getText().isEmpty() && !txt3DY.getText().isEmpty() && !txt3DZ.getText().isEmpty()){
+            Carga c;
+            cargas3d.add(( c = new Carga(Double.valueOf( txtCarga3D.getText()) , 
+                    new Point3D(Double.valueOf( txt3DX.getText()), 
+                            Double.valueOf( txt3DY.getText()), 
+                            Double.valueOf( txt3DZ.getText())))));
+            cmbCargas3D.addItem(c);
+        } else {
+            alert("Algun campo esta vacio.");
+        }
     }//GEN-LAST:event_btnAgregar3DActionPerformed
 
     private void btnEditSelected3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSelected3DActionPerformed
@@ -508,22 +516,32 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Imprime el calculo en el textarea
         if(ce3d == null) ce3d = new CampoElectrico3D(cargas3d);
+        if(!txt3DXPunto.getText().isEmpty() && !txt3DYPunto.getText().isEmpty() && !txt3DZPunto.getText().isEmpty()){
+           
         ce3d.setPuntoDeCarga(new Point3D(Double.valueOf( txt3DXPunto.getText()),
                 Double.valueOf( txt3DYPunto.getText()), 
                 Double.valueOf( txt3DZPunto.getText())));
         txtArea3D.append(ce3d.toString() + endl);
         txtArea3D.append("---------------------------------------------------"
                 +endl);
+        } else {
+            alert("Introduzca el punto de carga.");
+        }
     }//GEN-LAST:event_btnCalculate3DActionPerformed
 
     private void btnAgregar2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar2DActionPerformed
         // TODO add your handling code here:
         // Se agrega una nueva carga
+        if(!txtCarga2D.getText().isEmpty() && !txt2DX.getText().isEmpty() && !txt2DY.getText().isEmpty()){
+           
         Carga c;
         cargas2d.add(( c = new Carga(Double.valueOf( txtCarga2D.getText()) , 
                 new Point2D(Double.valueOf( txt2DX.getText()), 
                         Double.valueOf( txt2DY.getText())))));
         cmbCargas2D.addItem(c);
+        } else {
+            alert("Algu. campo esta vacio.");
+        }
     }//GEN-LAST:event_btnAgregar2DActionPerformed
 
     private void btnEditSelected2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSelected2DActionPerformed
@@ -549,11 +567,16 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Imprime el calculo en el textarea
         if(ce2d == null) ce2d = new CampoElectrico2D(cargas2d);
-        ce2d.setPuntoDeCarga(new Point2D(Double.valueOf( txt2DXPunto.getText()),
-                Double.valueOf( txt2DYPunto.getText())));
-        txtArea2D.append(ce2d.toString() + endl);
-        txtArea2D.append("---------------------------------------------------"
-                +endl);
+        if(!txt2DXPunto.getText().isEmpty() && !txt2DYPunto.getText().isEmpty()){
+           
+            ce2d.setPuntoDeCarga(new Point2D(Double.valueOf( txt2DXPunto.getText()),
+                    Double.valueOf( txt2DYPunto.getText())));
+            txtArea2D.append(ce2d.toString() + endl);
+            txtArea2D.append("---------------------------------------------------"
+                    +endl);
+        } else {
+            alert("Introduzca el punto de carga");
+        }
     }//GEN-LAST:event_btnCalculate2DActionPerformed
 
     private void btnClean3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClean3DActionPerformed
