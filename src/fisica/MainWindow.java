@@ -487,6 +487,7 @@ public class MainWindow extends javax.swing.JFrame {
                             Double.valueOf( txt3DY.getText()), 
                             Double.valueOf( txt3DZ.getText())))));
             cmbCargas3D.addItem(c);
+            cmbCargas3D.setSelectedItem(c);
         } else {
             alert("Algun campo esta vacio.");
         }
@@ -539,6 +540,7 @@ public class MainWindow extends javax.swing.JFrame {
                 new Point2D(Double.valueOf( txt2DX.getText()), 
                         Double.valueOf( txt2DY.getText())))));
         cmbCargas2D.addItem(c);
+        cmbCargas2D.setSelectedItem(c);
         } else {
             alert("Algu. campo esta vacio.");
         }

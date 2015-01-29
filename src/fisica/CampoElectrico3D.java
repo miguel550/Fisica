@@ -30,24 +30,7 @@ public class CampoElectrico3D {
         ex = ey = ez = 0;
         //reCalculate();
     }
-    public void addCarga(Carga c){
-        Point3D g = (Point3D) c.getPoint();
-        g = (Point3D) g.diference(p);
-        Point3D pp = (Point3D) this.p.diference((Point3D) c.getPoint());
-        double escalar = abs(c.getCarga()) / pow(g.abs(), 3);
-        ex += abs(escalar * g.getX());
-        ey += abs(escalar * g.getY());
-        ez += abs(escalar * g.getZ());
-    }
-    public void deleteCarga(Carga c){
-        Point3D g = (Point3D) c.getPoint();
-        g = (Point3D) g.diference(p);
-        Point3D pp = (Point3D) this.p.diference((Point3D) c.getPoint());
-        double escalar = abs(c.getCarga()) / pow(g.abs(), 3);
-        ex -= abs(escalar * g.getX());
-        ey -= abs(escalar * g.getY());
-        ez -= abs(escalar * g.getZ());
-    }
+
     private void reCalculate(){
         Point3D g, pp;
         double escalar;
@@ -94,15 +77,15 @@ public class CampoElectrico3D {
     }
     @Override
     public String toString(){
-        String endl = "\n";
+        String endl = "\n", magnitud = "N/C";
         String s = "Cargas" + endl;
         for(Carga c: l) s += c.toString() + endl;
         s += endl;
         s += "Punto de carga: " + this.p.toString() +"m"+ endl;
-        s += "El campo electrico en x es " +String.format("%.02E",this.getEx()) + " n/c"+endl;
-        s +="El campo electrico en y es "+ String.format("%.02E",this.getEy()) + " n/c"+endl;
-        s += "El campo electrico en z es "+ String.format("%.02E",this.getEz()) + " n/c"+endl;
-        s += "El campo electrico neto es "+ String.format("%.02E",this.getE()) + " n/c"+endl;
+        s += "El campo electrico en x es " +String.format("%.02E",this.getEx()) + " "+magnitud+endl;
+        s +="El campo electrico en y es "+ String.format("%.02E",this.getEy()) + " "+magnitud+endl;
+        s += "El campo electrico en z es "+ String.format("%.02E",this.getEz()) + " "+magnitud+endl;
+        s += "El campo electrico neto es "+ String.format("%.02E",this.getE()) + " "+magnitud+endl;
         return s;
     }
 }

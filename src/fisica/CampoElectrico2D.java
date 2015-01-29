@@ -29,24 +29,7 @@ public class CampoElectrico2D {
         this.l = cargas;
         ex = ey = 0;
     }
-    public void addCarga(Carga c){
-        l.add(c);
-        Point2D g = (Point2D) c.getPoint();
-        g = (Point2D) g.diference(p);
-        Point2D pp = (Point2D) this.p.diference((Point2D) c.getPoint());
-        double escalar = abs(c.getCarga()) / pow(g.abs(), 3);
-        ex += abs(escalar * pp.getX());
-        ey += abs(escalar * pp.getY());
-    }
-    public void deleteCarga(Carga c){
-        l.remove(c);
-        Point2D g = (Point2D) c.getPoint();
-        g = (Point2D) g.diference(p);
-        Point2D pp = (Point2D) this.p.diference((Point2D) c.getPoint());
-        double escalar = abs(c.getCarga()) / pow(g.abs(), 3);
-        ex -= abs(escalar * pp.getX());
-        ey -= abs(escalar * pp.getY());
-    }
+
     private void reCalculate(){
         Point2D g, pp;
         double escalar;
@@ -96,15 +79,15 @@ public class CampoElectrico2D {
     }
     @Override
     public String toString(){
-        String endl = "\n";
+        String endl = "\n", magnitud = "N/C";
         String s = "Cargas" + endl;
         for(Carga c: l) s += c.toString() + endl;
         s += endl;
         s += "Punto de carga: " + this.p.toString() +"m"+ endl;
         s += "El angulo del campo es " + String.format("%.2f",this.getAngleE()) +" grados"+ endl;
-        s += "El campo electrico en x es " + String.format("%.02E",this.getEx()) +" n/c"+ endl;
-        s += "El campo electrico en y es " + String.format("%.02E",this.getEy()) +" n/c"+ endl;
-        s += "El campo electrico neto es " + String.format("%.02E",this.getE()) +" n/c" +endl;
+        s += "El campo electrico en x es " + String.format("%.02E",this.getEx()) +" "+magnitud+ endl;
+        s += "El campo electrico en y es " + String.format("%.02E",this.getEy()) +" "+magnitud+ endl;
+        s += "El campo electrico neto es " + String.format("%.02E",this.getE()) +" "+magnitud +endl;
         return s;
     }
 }
