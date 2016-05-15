@@ -44,6 +44,6 @@ public class CampoElectrico2DIT {
     @Test
     public void testGetPuntoDeCarga() {
         System.out.println("getPuntoDeCarga");
-        assertEquals(1, 1);
+        assertEquals(1, 0);
     }
 }
